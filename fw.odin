@@ -6,6 +6,7 @@ import "core:thread"
 import "core:time"
 import "core:testing"
 import "core:sync"
+import "core:log"
 
 import "fw_impl"
 import "fw_shared"
@@ -39,6 +40,8 @@ watch :: proc(watcher: ^Watcher, path: string, ctx: ^$T, cb: proc(ctx: ^T)) -> b
     return true
 }
 
+
+
 stop :: proc(w: ^Watcher) {
     w.cont = false
 
@@ -62,6 +65,7 @@ watcher_test :: proc(t: ^testing.T) {
 
     w := new_watcher()
     defer stop(w)
+
     watch(w, "test_foo.txt", &written, proc(ctx: ^bool) { ctx^ = true })
 
     os.write_entire_file("test_foo.txt", {1, 2})

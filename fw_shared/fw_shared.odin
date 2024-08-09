@@ -3,10 +3,10 @@ package fw_shared
 import "core:thread"
 import "core:sync"
 
-Callback :: proc(any)
+Callback :: proc(rawptr)
 
 CbContext :: struct {
-    ctx: any,
+    ctx: rawptr,
     callback: Callback,
 }
 
